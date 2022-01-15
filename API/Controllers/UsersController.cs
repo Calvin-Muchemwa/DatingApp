@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -17,16 +19,16 @@ namespace API.Controllers
             _context = context;
         }
        [HttpGet]
-       public ActionResult<IEnumerable<AppUser>>GetUsers()//IEnumarable is basically a List/Array
+       public async Task<ActionResult<IEnumerable<AppUser>>>GetUsers()//IEnumarable is basically a List/Array
        {
-           return _context.Users.ToList();
+           return await _context.Users.ToListAsync();
           
        }
 
        [HttpGet("{id}")]
-       public ActionResult<AppUser>GetUser(int id)//IEnumarable is basically a List/Array
+       public async Task<ActionResult<AppUser>>GetUser(int id)//IEnumarable is basically a List/Array
        {
-           return _context.Users.Find(id);
+           return await _context.Users.FindAsync(id);
           
        }
     }
